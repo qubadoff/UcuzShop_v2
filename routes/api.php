@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\Auth\AuthController;
 use App\Http\Controllers\api\Cart\CartController;
+use App\Http\Controllers\api\Order\OrderController;
 use App\Http\Controllers\api\Product\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,6 @@ Route::prefix('panel')->middleware('auth:sanctum')->group(function () {
     Route::post('/addCart', [CartController::class, 'addCart']);
     Route::post('/deleteCart', [CartController::class, 'deleteCart']);
     Route::post('/updateCart', [CartController::class, 'updateCart']);
+
+    Route::post('/sendOrder', [OrderController::class, 'sendOrder']);
 });
