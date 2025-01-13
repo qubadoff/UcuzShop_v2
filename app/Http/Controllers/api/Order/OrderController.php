@@ -25,7 +25,7 @@ class OrderController extends Controller
         foreach ($request->products as $product) {
             $order->orderProduct()->create([
                 'order_id' => $order->id,
-                'product_id' => $product['id'],
+                'product_id' => $product['product_id'],
                 'count' => $product['count'],
             ]);
         }
