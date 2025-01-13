@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\Cart;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart\CartResource;
 use App\Models\Cart;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -38,5 +39,18 @@ class CartController extends Controller
         $cart->save();
 
         return new CartResource($cart);
+    }
+
+    public function deleteCart(Request $request): JsonResponse
+    {
+        $request->validate([
+            'cart_id' => 'required|exists:carts,id',
+        ]);
+
+        $cart = Cart::query()->find($request->cart_id);
+
+        $cart->delete();
+
+        return response()->json(['message' => 'Cart deleted successfully']);
     }
 }
