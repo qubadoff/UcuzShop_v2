@@ -20,7 +20,7 @@ class OrderController extends Controller
         $order = new Order();
         $order->customer_id = $request->customer_id;
         $order->price = $request->price;
-        $order->notes = $request->notes;
+        $order->note = $request->note;
         $order->save();
 
         return response()->json([
