@@ -53,4 +53,20 @@ class CartController extends Controller
 
         return response()->json(['message' => 'Cart deleted successfully']);
     }
+
+    public function updateCart(Request $request): CartResource
+    {
+        $request->validate([
+            'cart_id' => 'required|exists:carts,id',
+            'count' => 'required|numeric',
+        ]);
+
+        $cart = Cart::query()->find($request->cart_id);
+
+        $cart->count = $request->count;
+        $cart->save();
+
+
+        return new CartResource($cart);
+    }
 }
