@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CartController extends Controller
 {
-    public function cart(): AnonymousResourceCollection
+    public function cartList(): AnonymousResourceCollection
     {
         $data = Cart::query()->where('customer_id', auth()->user()->id)->get();
 

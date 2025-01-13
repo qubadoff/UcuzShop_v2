@@ -13,5 +13,5 @@ Route::prefix('auth')->group(function () {
 Route::prefix('panel')->middleware('auth:sanctum')->group(function () {
     Route::get('/productCategory', [ProductController::class, 'productCategory']);
     Route::get('/products', [ProductController::class, 'products']);
-    Route::get('/cart', [CartController::class, 'cart']);
+    Route::get('/cartList', [CartController::class, 'cartList']);
 });
