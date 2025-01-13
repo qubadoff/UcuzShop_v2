@@ -14,7 +14,7 @@ class OrderController extends Controller
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
             'price' => 'required|numeric',
-            'notes' => 'nullable|string',
+            'note' => 'nullable|string',
         ]);
 
         $order = new Order();
