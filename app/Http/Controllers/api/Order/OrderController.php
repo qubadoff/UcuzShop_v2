@@ -12,16 +12,23 @@ class OrderController extends Controller
     public function sendOrder(Request $request): JsonResponse
     {
         $request->validate([
-            'customer_id' => 'required|exists:customers,id',
             'price' => 'required|numeric',
             'note' => 'nullable|string',
         ]);
 
-        $order = new Order();
-        $order->customer_id = $request->customer_id;
-        $order->price = $request->price;
-        $order->note = $request->note;
-        $order->save();
+        $order = Order::query()->create([
+            'customer_id' => auth()->user()->id,
+            'price' => $request->price,
+            'note' => $request->note
+        ]);
+
+        foreach ($request->products as $product) {
+            $order->orderProduct()->create([
+                'order_id' => $order->id,
+                'product_id' => $product['id'],
+                'count' => $product['count'],
+            ]);
+        }
 
         return response()->json([
             'message' => 'Order sent successfully',
