@@ -17,7 +17,7 @@ class CartController extends Controller
         return CartResource::collection($data);
     }
 
-    public function addCart(Request $request)
+    public function addCart(Request $request): CartResource
     {
         $request->validate([
            'customer_id' => 'required|exists:customers,id',
