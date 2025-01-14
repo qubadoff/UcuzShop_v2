@@ -87,4 +87,11 @@ class CustomerResource extends Resource
             'edit' => Pages\EditCustomer::route('/{record}/edit'),
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        $modelClass = static::$model;
+
+        return (string) $modelClass::count();
+    }
 }

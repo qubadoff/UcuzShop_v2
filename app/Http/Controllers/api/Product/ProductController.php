@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api\Product;
 
+use App\Enum\Product\ProductStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
@@ -18,7 +19,7 @@ class ProductController extends Controller
 
     public function products(): AnonymousResourceCollection
     {
-        $data = Product::query()->orderBy('created_at', 'desc')->paginate(20);
+        $data = Product::query()->where('status', ProductStatusEnum::ACTIVE)->orderBy('created_at', 'desc')->paginate(20);
 
         return ProductResource::collection($data);
 
