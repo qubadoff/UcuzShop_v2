@@ -18,8 +18,10 @@ class OrderController extends Controller
             'note' => 'nullable|string',
         ]);
 
+        $customer = auth()->user();
+
         $order = Order::query()->create([
-            'customer_id' => auth()->user()->id,
+            'customer_id' => $customer->id,
             'price' => $request->price,
             'note' => $request->note
         ]);
@@ -31,6 +33,8 @@ class OrderController extends Controller
                 'count' => $product['count'],
             ]);
         }
+
+        $customer->cart()->delete();
 
         return response()->json([
             'message' => 'Order sent successfully',
