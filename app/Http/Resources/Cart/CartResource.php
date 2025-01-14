@@ -21,9 +21,9 @@ class CartResource extends JsonResource
                 'name' => $this->customer->name,
             ],
             'product' => [
-                'id' => $this->product->id,
-                'name' => $this->product->name,
-                'price' => $this->product->price
+                'id' => $this->product->id ?? null,
+                'name' => $this->product->name ?? null,
+                'price' => $this->product->price ?? null
             ],
             'count' => $this->count
         ];
