@@ -64,7 +64,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('stock_count')->sortable(),
                 Tables\Columns\TextColumn::make('status')->badge(),
                 Tables\Columns\ImageColumn::make('images')
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
