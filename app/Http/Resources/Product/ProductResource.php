@@ -25,7 +25,7 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'stock_count' => $this->stock_count,
             'images' => collect($this->images)->map(function ($image) {
-                return url('/storage/images/' . $image);
+                return url('/') . '/storage/' . $image;
             }),
         ];
     }
