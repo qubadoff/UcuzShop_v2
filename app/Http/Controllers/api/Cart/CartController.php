@@ -21,7 +21,6 @@ class CartController extends Controller
     public function addCart(Request $request): CartResource
     {
         $request->validate([
-           'customer_id' => 'required|exists:customers,id',
            'product_id' => 'required|exists:products,id',
            'count' => 'required|numeric',
         ]);
@@ -32,7 +31,7 @@ class CartController extends Controller
             $cart->count += $request->count;
         } else {
             $cart = new Cart();
-            $cart->customer_id = $request->customer_id;
+            $cart->customer_id = auth()->user()->id;
             $cart->product_id = $request->product_id;
             $cart->count = $request->count;
         }
