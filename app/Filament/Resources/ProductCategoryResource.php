@@ -14,9 +14,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductCategoryResource extends Resource
 {
-    use SoftDeletes;
-
     protected static ?string $model = ProductCategory::class;
+
+    protected static ?string $navigationLabel = 'Products';
+
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
