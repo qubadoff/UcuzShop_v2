@@ -65,8 +65,8 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('customer.name')->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->money(' AZN'),
                 Tables\Columns\TextColumn::make('status')->badge(),
-                Tables\Columns\TextColumn::make('created_at')->date(),
-            ])
+                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
