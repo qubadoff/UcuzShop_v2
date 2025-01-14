@@ -28,6 +28,7 @@ class OrderResource extends JsonResource
                 return [
                     'product_id' => $product->product_id,
                     'name' => $product->product->name,
+                    'price' => $product->product->price,
                     'count' => $product->count,
                     'images' => collect($product->product->images)->map(function ($image) {
                         return url('/storage/images/' . $image);
