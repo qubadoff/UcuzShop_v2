@@ -30,9 +30,9 @@ class OrderResource extends JsonResource
                     'name' => $product->product->name,
                     'price' => $product->product->price,
                     'count' => $product->count,
-                    'images' => collect($this->product->images)->map(function ($image) {
+                    'images' => collect(optional($product->product)->images)->map(function ($image) {
                         return url('/') . '/storage/' . $image;
-                    }),
+                    })->filter(),
                 ];
             })
         ];
