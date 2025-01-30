@@ -6,6 +6,7 @@ use App\Enum\Order\OrderStatusEnum;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Models\Order;
 use App\Models\Product;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -29,6 +30,9 @@ class OrderResource extends Resource
                 Section::make([
                     Select::make('customer_id')
                         ->relationship('customer', 'name')
+                        ->required(),
+                    Select::make('partner_id')
+                        ->relationship('partner', 'name')
                         ->required(),
                     TextInput::make('price')->numeric()->required(),
                     Textarea::make('notes')->nullable(),

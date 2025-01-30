@@ -22,6 +22,11 @@ class Order extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    public function partner(): BelongsTo
+    {
+        return $this->belongsTo(Partner::class);
+    }
+
     public function orderProduct(): HasMany
     {
         return $this->hasMany(OrderProduct::class, 'order_id', 'id');
