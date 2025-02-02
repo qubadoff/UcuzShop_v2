@@ -62,6 +62,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable(),
                 Tables\Columns\TextColumn::make('stock_count')->sortable(),
+                Tables\Columns\TextColumn::make('yeast_count')->sortable()->numeric(),
                 Tables\Columns\TextColumn::make('status')->badge(),
                 Tables\Columns\ImageColumn::make('images')
             ])->defaultSort('created_at', 'desc')
