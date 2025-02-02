@@ -8,6 +8,7 @@ use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProductController extends Controller
@@ -17,11 +18,15 @@ class ProductController extends Controller
         return response()->json(ProductCategory::query()->orderBy('sort_order')->get());
     }
 
-    public function products(): AnonymousResourceCollection
+    public function products(Request $request): AnonymousResourceCollection
     {
-        $data = Product::query()->where('status', ProductStatusEnum::ACTIVE)->orderBy('created_at', 'desc')->paginate(20);
+        $data = Product::query();
 
-        return ProductResource::collection($data);
+        if ($request->filled('search')) {
+            $data = $data->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        return ProductResource::collection($data->where('status', ProductStatusEnum::ACTIVE)->orderBy('created_at', 'desc')->paginate(20));
 
     }
 }
