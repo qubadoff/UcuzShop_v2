@@ -27,6 +27,7 @@ enum OrderStatusEnum: int implements HasLabel, HasColor
             self::COMPLETED => 'Completed',
             self::DELIVERED => 'Delivered',
             self::RETURNED => 'Returned',
+            self::PREPARING => 'Preparing',
         };
     }
 
