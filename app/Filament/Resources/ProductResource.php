@@ -33,6 +33,7 @@ class ProductResource extends Resource
                     TextInput::make('name')->required(),
                     TextInput::make('price')->required()->numeric(),
                     TextInput::make('stock_count')->required()->numeric(),
+                    TextInput::make('yeast_count')->required()->numeric(),
                     Select::make('status')
                         ->options([
                             ProductStatusEnum::ACTIVE->value => ProductStatusEnum::ACTIVE->getLabel(),
