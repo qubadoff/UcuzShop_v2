@@ -17,6 +17,8 @@ enum OrderStatusEnum: int implements HasLabel, HasColor
 
     case RETURNED = 5;
 
+    case PREPARING = 6;
+
     public function getLabel(): string
     {
         return match ($this) {

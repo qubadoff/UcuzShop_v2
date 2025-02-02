@@ -36,6 +36,7 @@ class OrderResource extends Resource
                         ->required(),
                     TextInput::make('price')->numeric()->required(),
                     Textarea::make('notes')->nullable(),
+                    TextInput::make('discount')->numeric()->default(0)->suffix(' %'),
                     Select::make('status')
                         ->options([
                             OrderStatusEnum::PENDING->value => OrderStatusEnum::PENDING->getLabel(),
@@ -43,6 +44,7 @@ class OrderResource extends Resource
                             OrderStatusEnum::COMPLETED->value => OrderStatusEnum::COMPLETED->getLabel(),
                             OrderStatusEnum::DELIVERED->value => OrderStatusEnum::DELIVERED->getLabel(),
                             OrderStatusEnum::RETURNED->value => OrderStatusEnum::RETURNED->getLabel(),
+                            OrderStatusEnum::PREPARING->value => OrderStatusEnum::PREPARING->getLabel(),
                         ])
                         ->default(1)
                         ->required(),
@@ -68,6 +70,7 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('customer.name')->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->money(' AZN'),
+                Tables\Columns\TextColumn::make('discount')->sortable()->money(' %'),
                 Tables\Columns\TextColumn::make('status')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])->defaultSort('created_at', 'desc')
