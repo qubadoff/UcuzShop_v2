@@ -70,7 +70,7 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('customer.name')->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->money(' AZN'),
-                Tables\Columns\TextColumn::make('discount')->sortable()->money(' %'),
+                Tables\Columns\TextColumn::make('discount')->sortable()->suffix(' %'),
                 Tables\Columns\TextColumn::make('status')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])->defaultSort('created_at', 'desc')
