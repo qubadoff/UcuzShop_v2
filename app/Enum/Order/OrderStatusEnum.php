@@ -31,12 +31,16 @@ enum OrderStatusEnum: int implements HasLabel, HasColor
         };
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getColor(): string
     {
         return match ($this) {
             self::PENDING => 'warning',
             self::CANCELLED, self::RETURNED => 'danger',
             self::COMPLETED, self::DELIVERED => 'success',
+            self::PREPARING => throw new \Exception('To be implemented'),
         };
     }
 }
