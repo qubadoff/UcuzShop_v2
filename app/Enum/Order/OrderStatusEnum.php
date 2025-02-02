@@ -40,7 +40,7 @@ enum OrderStatusEnum: int implements HasLabel, HasColor
             self::PENDING => 'warning',
             self::CANCELLED, self::RETURNED => 'danger',
             self::COMPLETED, self::DELIVERED => 'success',
-            self::PREPARING => throw new \Exception('To be implemented'),
+            self::PREPARING => 'info',
         };
     }
 }
