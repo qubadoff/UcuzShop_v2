@@ -51,6 +51,7 @@ class ProductResource extends Resource
                             '4:3',
                             '1:1',
                         ]),
+                    FileUpload::make('video')->nullable(),
                 ])
             ]);
     }
