@@ -29,6 +29,7 @@ class CustomerResource extends Resource
                     TextInput::make('name')->required(),
                     TextInput::make('country_code')->default('+994')->disabled(),
                     TextInput::make('phone')->numeric()->required(),
+                    TextInput::make('location')->nullable(),
                     TextInput::make('password')
                         ->password()
                         ->revealable()
@@ -55,6 +56,7 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('country_code'),
                 Tables\Columns\TextColumn::make('phone'),
+                Tables\Columns\TextColumn::make('location'),
                 Tables\Columns\TextColumn::make('status')->badge()
             ])
             ->filters([
