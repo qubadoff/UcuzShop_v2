@@ -37,6 +37,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'country_code' => $user->country_code,
                 'phone' => $user->phone,
+                'location' => $user->location,
             ]
         ]);
     }
