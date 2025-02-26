@@ -53,6 +53,7 @@ class AuthController extends Controller
         $customer = Customer::create([
             'name' => $request->name,
             'phone' => $request->phone,
+            'location' => $request->location,
             'password' => Hash::make($request->password),
         ]);
 
@@ -63,7 +64,8 @@ class AuthController extends Controller
             'customer' => [
                 'name' => $customer->name,
                 'country_code' => $customer->country_code,
-                'phone' => $customer->phone
+                'phone' => $customer->phone,
+                'location' => $customer->location,
             ],
         ], 201);
     }
