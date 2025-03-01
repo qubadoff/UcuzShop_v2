@@ -20,6 +20,8 @@ class ProductResource extends Resource
 
     protected static ?string $navigationGroup = 'Products';
 
+    protected static ?string $label = 'Məhsul';
+
     protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -29,29 +31,29 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    Select::make('category_id')->relationship('category', 'name')->required(),
-                    TextInput::make('name')->required(),
-                    TextInput::make('price')->required()->numeric(),
-                    TextInput::make('stock_count')->required()->numeric(),
-                    TextInput::make('yeast_count')->required()->numeric(),
+                    Select::make('category_id')->relationship('category', 'name')->required()->label('Kateqoriya'),
+                    TextInput::make('name')->required()->label('Ad'),
+                    TextInput::make('price')->required()->numeric()->label('Qiymət'),
+                    TextInput::make('stock_count')->required()->numeric()->label('Məhsul sayı'),
+                    TextInput::make('yeast_count')->required()->numeric()->label('Maya dəyəri'),
                     Select::make('status')
                         ->options([
                             ProductStatusEnum::ACTIVE->value => ProductStatusEnum::ACTIVE->getLabel(),
                             ProductStatusEnum::INACTIVE->value => ProductStatusEnum::INACTIVE->getLabel(),
                         ])
-                        ->required()
+                        ->required()->label('Status')
                         ->default(ProductStatusEnum::ACTIVE->value)
                 ]),
                 Section::make([
                     FileUpload::make('images')->multiple()->required()
-                        ->image()
+                        ->image()->label('Şəkli')
                         ->imageEditor()
                         ->imageEditorAspectRatios([
                             '16:9',
                             '4:3',
                             '1:1',
                         ]),
-                    FileUpload::make('video')->nullable(),
+                    FileUpload::make('video')->nullable()->label('Video'),
                 ])
             ]);
     }
@@ -61,12 +63,12 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\TextColumn::make('name')->searchable(),
-                Tables\Columns\TextColumn::make('price')->sortable(),
-                Tables\Columns\TextColumn::make('stock_count')->sortable(),
-                Tables\Columns\TextColumn::make('yeast_count')->sortable()->numeric(),
-                Tables\Columns\TextColumn::make('status')->badge(),
-                Tables\Columns\ImageColumn::make('images')
+                Tables\Columns\TextColumn::make('name')->searchable()->label('Ad'),
+                Tables\Columns\TextColumn::make('price')->sortable()->label('Qiymət'),
+                Tables\Columns\TextColumn::make('stock_count')->sortable()->label('Məhsul sayı'),
+                Tables\Columns\TextColumn::make('yeast_count')->sortable()->numeric()->label('Maya dəyəri'),
+                Tables\Columns\TextColumn::make('status')->badge()->label('Status'),
+                Tables\Columns\ImageColumn::make('images')->label('Şəkli'),
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 //

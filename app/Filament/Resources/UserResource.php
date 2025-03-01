@@ -18,6 +18,8 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
+    protected static ?string $label = 'İstifadəçilər';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -25,8 +27,8 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    TextInput::make('name')->label('Ad')->required(),
-                    TextInput::make('email')->label('Email')->required(),
+                    TextInput::make('name')->label('Ad')->required()->label('Ad'),
+                    TextInput::make('email')->label('Email')->required()->label('Email'),
                     TextInput::make('password')
                         ->password()
                         ->revealable()

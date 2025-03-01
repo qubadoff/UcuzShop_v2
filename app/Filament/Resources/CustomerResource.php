@@ -19,6 +19,8 @@ class CustomerResource extends Resource
 {
     protected static ?string $model = Customer::class;
 
+    protected static ?string $label = 'Müştəri';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -26,11 +28,11 @@ class CustomerResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    TextInput::make('name')->required(),
-                    TextInput::make('country_code')->default('+994')->disabled(),
-                    TextInput::make('phone')->numeric()->required(),
-                    TextInput::make('location')->nullable(),
-                    TextInput::make('password')
+                    TextInput::make('name')->required()->label('Ad'),
+                    TextInput::make('country_code')->default('+994')->disabled()->label('Ölkə kodu'),
+                    TextInput::make('phone')->numeric()->required()->label('Telefon'),
+                    TextInput::make('location')->nullable()->label('Lokasiya'),
+                    TextInput::make('password')->label('Şifrə')
                         ->password()
                         ->revealable()
                         ->dehydrated(fn ($state) => filled($state))
@@ -53,11 +55,11 @@ class CustomerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id'),
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('country_code'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('location'),
-                Tables\Columns\TextColumn::make('status')->badge()
+                Tables\Columns\TextColumn::make('name')->label('Ad'),
+                Tables\Columns\TextColumn::make('country_code')->label('Ölkə kodu'),
+                Tables\Columns\TextColumn::make('phone')->label(''),
+                Tables\Columns\TextColumn::make('location')->label('Lokasiya'),
+                Tables\Columns\TextColumn::make('status')->label('Status')->badge()
             ])
             ->filters([
                 //

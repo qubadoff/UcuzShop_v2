@@ -20,6 +20,9 @@ class PartnerResource extends Resource
 {
     protected static ?string $model = Partner::class;
 
+    protected static ?string $label = 'Tərəfdaş';
+
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -27,17 +30,17 @@ class PartnerResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    TextInput::make('name')->required(),
-                    TextInput::make('country_code')->default('+994')->disabled(),
-                    TextInput::make('phone')->numeric()->required(),
-                    TextInput::make('password')
+                    TextInput::make('name')->required()->label('Ad'),
+                    TextInput::make('country_code')->default('+994')->disabled()->label('Ölkə kodu'),
+                    TextInput::make('phone')->numeric()->required()->label('Telefon'),
+                    TextInput::make('password')->label('Şifrə')
                         ->password()
                         ->revealable()
                         ->dehydrated(fn ($state) => filled($state))
                         ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                         ->label('Şifrə')
                         ->required(fn (Page $livewire) => $livewire instanceof Pages\CreatePartner),
-                    Select::make('status')
+                    Select::make('status')->label('Status')
                         ->options([
                             PartnerStatusEnum::ACTIVE->value => PartnerStatusEnum::ACTIVE->getLabel(),
                             PartnerStatusEnum::INACTIVE->value => PartnerStatusEnum::INACTIVE->getLabel(),
@@ -53,10 +56,10 @@ class PartnerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id'),
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('country_code'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('status')->badge(),
+                Tables\Columns\TextColumn::make('name')->label('Ad'),
+                Tables\Columns\TextColumn::make('country_code')->label('Ölkə kodu'),
+                Tables\Columns\TextColumn::make('phone')->label('Telefon'),
+                Tables\Columns\TextColumn::make('status')->badge()->label('Status'),
             ])
             ->filters([
                 //

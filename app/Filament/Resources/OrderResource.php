@@ -21,6 +21,9 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
+    protected static ?string $label = 'Sifarişlər';
+
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -30,13 +33,13 @@ class OrderResource extends Resource
                 Section::make([
                     Select::make('customer_id')
                         ->relationship('customer', 'name')
-                        ->required(),
+                        ->required()->label('Müştəri'),
                     Select::make('partner_id')
                         ->relationship('partner', 'name')
-                        ->required(),
-                    TextInput::make('price')->numeric()->required(),
-                    Textarea::make('notes')->nullable(),
-                    TextInput::make('discount')->numeric()->default(0)->suffix(' %'),
+                        ->required()->label('Tərəfdaş'),
+                    TextInput::make('price')->numeric()->required()->label('Qiymət'),
+                    Textarea::make('notes')->nullable()->label('Qeyd'),
+                    TextInput::make('discount')->numeric()->default(0)->suffix(' %')->label('Endirim'),
                     Select::make('status')
                         ->options([
                             OrderStatusEnum::PENDING->value => OrderStatusEnum::PENDING->getLabel(),
@@ -45,7 +48,7 @@ class OrderResource extends Resource
                             OrderStatusEnum::DELIVERED->value => OrderStatusEnum::DELIVERED->getLabel(),
                             OrderStatusEnum::RETURNED->value => OrderStatusEnum::RETURNED->getLabel(),
                             OrderStatusEnum::PREPARING->value => OrderStatusEnum::PREPARING->getLabel(),
-                        ])
+                        ])->label('Status')
                         ->default(1)
                         ->required(),
                 ]),
@@ -56,9 +59,9 @@ class OrderResource extends Resource
                         ->schema([
                             Select::make('product_id')
                                 ->options(Product::all()->pluck('name', 'id'))
-                                ->required(),
-                            TextInput::make('count')->required()->numeric(),
-                        ])
+                                ->required()->label('Məhsul'),
+                            TextInput::make('count')->required()->numeric()->label('Miqdar'),
+                        ])->label('Məhsullar')
                 ])
             ]);
     }

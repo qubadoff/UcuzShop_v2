@@ -18,6 +18,9 @@ class ProductCategoryResource extends Resource
 
     protected static ?string $navigationGroup = 'Products';
 
+    protected static ?string $label = 'Kateqoriyalar';
+
+
     protected static ?int $navigationSort = 2;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -27,7 +30,7 @@ class ProductCategoryResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    TextInput::make('name')->required(),
+                    TextInput::make('name')->required()->label('Ad'),
                 ])
             ]);
     }
@@ -37,7 +40,7 @@ class ProductCategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id'),
-                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('name')->searchable()->label('Ad'),
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
