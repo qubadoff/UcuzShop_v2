@@ -30,7 +30,7 @@ class PartnerController extends Controller
             ], 422);
         }
 
-        $token = $user->createToken('authToken')->plainTextToken;
+        $token = $user->createToken('PartnerAuthToken')->plainTextToken;
 
         return response()->json([
             'token' => $token,
