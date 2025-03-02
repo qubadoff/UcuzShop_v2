@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1\Partner;
 
 use App\Enum\Partner\PartnerStatusEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Partner\PartnerResource;
 use App\Models\Customer;
 use App\Models\Partner;
 use Illuminate\Http\JsonResponse;
@@ -33,15 +34,7 @@ class PartnerController extends Controller
 
         return response()->json([
             'token' => $token,
-            'partner' => [
-                'name' => $user->name,
-                'country_code' => $user->country_code,
-                'phone' => $user->phone,
-            ],
-            'status' => [
-                'id' => $user->status->value,
-                'name' => PartnerStatusEnum::tryFrom($user->status->value)->getLabel(),
-            ]
+            'partner' => PartnerResource::make($user),
         ]);
     }
 
