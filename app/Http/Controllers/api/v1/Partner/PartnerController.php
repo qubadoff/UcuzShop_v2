@@ -51,12 +51,16 @@ class PartnerController extends Controller
     public function orderStatus(Request $request): OrderResource
     {
         $request->validate([
+            'order_id' => 'required|numeric|exists:orders,id',
             'status' => 'required|numeric|in:3,6',
         ]);
 
         $user = auth()->user();
 
-        $order = Order::query()->where('partner_id', $user->id)->where('id', $request->id)->first();
+        $order = Order::query()
+            ->where('partner_id', $user->id)
+            ->where('id', $request->order_id)
+            ->first();
 
         $order->status = $request->status;
         $order->save();
