@@ -73,11 +73,11 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('customer.name')->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->money(' AZN'),
                 Tables\Columns\TextColumn::make('discount')->sortable()->suffix(' %'),
-                Tables\Columns\ImageColumn::make('orderProduct')
+                Tables\Columns\ImageColumn::make('first_product_image')
                     ->label('Şəkli')
-                    ->formatStateUsing(fn ($state) =>
-                    optional($state->first()?->product)->images
-                        ? (json_decode($state->first()->product->images, true)[0] ?? 'default.jpg')
+                    ->getStateUsing(fn ($record) =>
+                    optional($record->orderProduct->first()?->product)->images
+                        ? json_decode($record->orderProduct->first()->product->images, true)[0] ?? 'default.jpg'
                         : 'default.jpg'
                     ),
                 Tables\Columns\TextColumn::make('status')->badge(),
