@@ -39,8 +39,8 @@ class PartnerController extends Controller
                 'phone' => $user->phone,
             ],
             'status' => [
-                'id' => $user->status,
-                'name' => PartnerStatusEnum::tryFrom($user->status)->getLabel(),
+                'id' => $user->status->value,
+                'name' => PartnerStatusEnum::tryFrom($user->status->value)->getLabel(),
             ]
         ]);
     }
