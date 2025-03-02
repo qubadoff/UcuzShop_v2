@@ -43,7 +43,10 @@ class PartnerController extends Controller
     {
         $user = auth()->user();
 
-        $orders = Order::query()->where('partner_id', $user->id)->paginate(20);
+        $orders = Order::query()
+            ->where('partner_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
 
         return OrderResource::collection($orders);
     }
