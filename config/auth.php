@@ -16,6 +16,10 @@ return [
             'driver' => 'sanctum',
             'provider' => 'customers',
         ],
+        'partner' => [
+            'driver' => 'sanctum',
+            'provider' => 'partners',
+        ],
     ],
 
     'providers' => [
@@ -27,6 +31,11 @@ return [
         'customers' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Customer::class),
+        ],
+
+        'partners' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Partner::class),
         ],
     ],
 
