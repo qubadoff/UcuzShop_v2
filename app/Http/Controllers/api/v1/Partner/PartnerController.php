@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Partner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Hash;
 
 class PartnerController extends Controller
@@ -38,13 +39,30 @@ class PartnerController extends Controller
         ]);
     }
 
-    public function orders()
+    public function orders(): AnonymousResourceCollection
     {
         $user = auth()->user();
 
         $orders = Order::query()->where('partner_id', $user->id)->paginate(20);
 
         return OrderResource::collection($orders);
+    }
+
+    public function orderStatus(Request $request): OrderResource
+    {
+        $request->validate([
+            'status' => 'required|numeric|in:3,6',
+        ]);
+
+        $user = auth()->user();
+
+        $order = Order::query()->where('partner_id', $user->id)->where('id', $request->id)->first();
+
+        $order->status = $request->status;
+        $order->save();
+        $order->refresh();
+
+        return OrderResource::make($order);
     }
 
 }

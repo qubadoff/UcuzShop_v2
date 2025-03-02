@@ -28,4 +28,5 @@ Route::prefix('panel')->middleware('auth:sanctum')->group(function () {
 Route::prefix('partner')->group(function () {
     Route::post('/login', [PartnerController::class, 'login']);
     Route::get('/orders', [PartnerController::class, 'orders'])->middleware('auth:sanctum');
+    Route::post('/orderStatus', [PartnerController::class, 'orderStatus'])->middleware('auth:sanctum');
 });
