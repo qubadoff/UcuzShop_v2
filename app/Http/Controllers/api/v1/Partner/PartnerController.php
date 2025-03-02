@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\api\v1\Partner;
 
-use App\Enum\Partner\PartnerStatusEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Order\OrderResource;
 use App\Http\Resources\Partner\PartnerResource;
-use App\Models\Customer;
+use App\Models\Order;
 use App\Models\Partner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,6 +36,15 @@ class PartnerController extends Controller
             'token' => $token,
             'partner' => PartnerResource::make($user),
         ]);
+    }
+
+    public function orders()
+    {
+        $user = auth()->user();
+
+        $orders = Order::query()->where('partner_id', $user->id)->paginate(20);
+
+        return OrderResource::collection($orders);
     }
 
 }
