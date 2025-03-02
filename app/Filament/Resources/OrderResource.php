@@ -6,7 +6,6 @@ use App\Enum\Order\OrderStatusEnum;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Models\Order;
 use App\Models\Product;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -15,9 +14,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Actions\ExportBulkAction;
 use Filament\Tables\Table;
-use PrintFilament\Print\Infolists\Components\PrintComponent;
 
 class OrderResource extends Resource
 {
@@ -76,6 +73,7 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('customer.name')->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->money(' AZN'),
                 Tables\Columns\TextColumn::make('discount')->sortable()->suffix(' %'),
+                Tables\Columns\ImageColumn::make('orderProduct.product.image')->label('Şəkli'),
                 Tables\Columns\TextColumn::make('status')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])->defaultSort('created_at', 'desc')
