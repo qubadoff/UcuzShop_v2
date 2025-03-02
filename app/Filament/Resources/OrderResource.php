@@ -85,7 +85,7 @@ class OrderResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
-                PrintComponent::make("print_page")->label("Print Page")->columnSpanFull(),
+                PrintComponent::make("orders")->label("Print Page")->columnSpanFull(),
         ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
