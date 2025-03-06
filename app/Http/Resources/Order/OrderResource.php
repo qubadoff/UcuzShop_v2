@@ -35,7 +35,7 @@ class OrderResource extends JsonResource
             'customer' => [
                 'id' => $this->customer_id,
                 'name' => $this->customer->name,
-                'phone' => $this->customer->country_code + $this->customer->phone,
+                'phone' => $this->customer->phone,
                 'address' => $this->customer->location,
             ],
             'products' => $this->orderProduct->map(function ($product) {
