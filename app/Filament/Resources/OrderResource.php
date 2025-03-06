@@ -37,7 +37,7 @@ class OrderResource extends Resource
                         ->relationship('partner', 'name')
                         ->required()->label('Tərəfdaş'),
                     TextInput::make('price')->numeric()->required()->label('Qiymət'),
-                    Textarea::make('notes')->nullable()->label('Qeyd'),
+                    Textarea::make('note')->nullable()->label('Qeyd'),
                     TextInput::make('discount')->numeric()->default(0)->suffix(' %')->label('Endirim'),
                     Select::make('status')
                         ->options([
