@@ -71,5 +71,4 @@ class PartnerController extends Controller
 
         return OrderResource::make($order);
     }
-
 }
