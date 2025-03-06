@@ -32,6 +32,12 @@ class OrderResource extends JsonResource
                 'status' => $this->status,
                 'name' => OrderStatusEnum::tryFrom($this->status->value)->getLabel(),
             ],
+            'customer' => [
+                'id' => $this->customer_id,
+                'name' => $this->customer->name,
+                'phone' => $this->customer->country_code - $this->customer->phone,
+                'address' => $this->customer->location,
+            ],
             'products' => $this->orderProduct->map(function ($product) {
                 return [
                     'product_id' => $product->product_id,
