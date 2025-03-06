@@ -5,6 +5,8 @@ namespace App\Http\Controllers\api\Cart;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart\CartResource;
 use App\Models\Cart;
+use App\Models\Customer;
+use App\Notifications\AddCartNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -36,6 +38,11 @@ class CartController extends Controller
             $cart->count = $request->count;
         }
         $cart->save();
+
+
+        $user = Customer::query()->where('id', auth()->user()->id)->first();
+
+        $user->notify(new AddCartNotification());
 
         return new CartResource($cart);
     }

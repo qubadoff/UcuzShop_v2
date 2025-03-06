@@ -6,11 +6,12 @@ use App\Enum\Customer\CustomerStatusEnum;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Customer extends Authenticatable
 {
-    use HasApiTokens, SoftDeletes;
+    use HasApiTokens, SoftDeletes, Notifiable;
 
     protected $table = 'customers';
 

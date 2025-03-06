@@ -28,7 +28,6 @@ Route::prefix('panel')->middleware('auth:sanctum')->group(function () {
     Route::get('/orderDetails', [OrderController::class, 'orderDetails']);
 });
 
-
 Route::prefix('partner')->group(function () {
     Route::post('/login', [PartnerController::class, 'login']);
     Route::get('/orders', [PartnerController::class, 'orders'])->middleware('auth:sanctum');
