@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\Auth\AuthController;
 use App\Http\Controllers\api\Cart\CartController;
+use App\Http\Controllers\api\Notification\NotificationController;
 use App\Http\Controllers\api\Order\OrderController;
 use App\Http\Controllers\api\Product\ProductController;
 use App\Http\Controllers\api\v1\Partner\PartnerController;
@@ -13,6 +14,9 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('panel')->middleware('auth:sanctum')->group(function () {
+
+    Route::get('/notifications', [NotificationController::class, 'notifications']);
+
     Route::get('/productCategory', [ProductController::class, 'productCategory']);
     Route::get('/products', [ProductController::class, 'products']);
     Route::get('/cartList', [CartController::class, 'cartList']);
