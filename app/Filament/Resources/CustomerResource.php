@@ -31,7 +31,7 @@ class CustomerResource extends Resource
                     TextInput::make('name')->required()->label('Ad'),
                     TextInput::make('country_code')->default('+994')->disabled()->label('Ölkə kodu'),
                     TextInput::make('phone')->numeric()->required()->label('Telefon'),
-                    TextInput::make('location')->nullable()->label('Lokasiya'),
+                    TextInput::make('location')->nullable()->label('Lokasiya')->required(),
                     TextInput::make('password')->label('Şifrə')
                         ->password()
                         ->revealable()

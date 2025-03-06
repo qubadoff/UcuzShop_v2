@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Order;
 
 use App\Enum\Order\OrderStatusEnum;
-use App\Enum\Product\ProductStatusEnum;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
