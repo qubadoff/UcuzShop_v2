@@ -16,9 +16,16 @@ class OrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $discountedData = 0;
+
+        if ($this->discount > 0) {
+            $discountedData = $this->price - ($this->price * $this->discount / 100);
+        }
+
         return [
             'id' => $this->id,
             'price' => $this->price,
+            'price_d' => $discountedData,
             'discount' => $this->discount,
             'note' => $this->note,
             'status' => [

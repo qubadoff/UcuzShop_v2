@@ -30,7 +30,6 @@ class ProductController extends Controller
             $data = $data->where('category_id', $request->category_id);
         }
 
-
         return ProductResource::collection($data->where('status', ProductStatusEnum::ACTIVE)->orderBy('created_at', 'desc')->paginate(20));
 
     }

@@ -22,12 +22,12 @@ enum OrderStatusEnum: int implements HasLabel, HasColor
     public function getLabel(): string
     {
         return match ($this) {
-            self::PENDING => 'Pending',
-            self::CANCELLED => 'Cancelled',
-            self::COMPLETED => 'Completed',
-            self::DELIVERED => 'Delivered',
-            self::RETURNED => 'Returned',
-            self::PREPARING => 'Preparing',
+            self::PENDING => 'Gözləmədə',
+            self::CANCELLED => 'Ləğv edildi',
+            self::COMPLETED => 'Tamamlandı',
+            self::DELIVERED => 'Çatdırıldı',
+            self::RETURNED => 'Geri qaytarıldı',
+            self::PREPARING => 'Hazırlanır',
         };
     }
 
