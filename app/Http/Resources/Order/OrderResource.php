@@ -41,7 +41,7 @@ class OrderResource extends JsonResource
                 return [
                     'product_id' => $product->product_id,
                     'name' => $product->product->name,
-                    'price' => $product->product->price,
+                    'price' => $product->product->price * $product->count,
                     'count' => $product->count,
                     'images' => collect(optional($product->product)->images)->map(function ($image) {
                         return url('/') . '/storage/' . $image;
