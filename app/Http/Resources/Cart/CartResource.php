@@ -24,9 +24,9 @@ class CartResource extends JsonResource
                 'id' => $this->product->id ?? null,
                 'name' => $this->product->name ?? null,
                 'price' => $this->product->price ?? null,
-                'images' => collect($this->product->images)->map(function ($image) {
+                'images' => $this->product->images ? collect(optional($this->product)->images)->map(function ($image) {
                     return url('/') . '/storage/' . $image;
-                }),
+                }) : [],
             ],
             'count' => $this->count
         ];
