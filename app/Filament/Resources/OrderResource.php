@@ -70,11 +70,12 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\TextColumn::make('customer.name')->searchable(),
-                Tables\Columns\TextColumn::make('price')->sortable()->money(' AZN'),
-                Tables\Columns\TextColumn::make('discount')->sortable()->suffix(' %'),
+                Tables\Columns\TextColumn::make('customer.name')->searchable()->label('Müştəri'),
+                Tables\Columns\TextColumn::make('partner.name')->searchable()->label('Tərəfdaş'),
+                Tables\Columns\TextColumn::make('price')->sortable()->money(' AZN')->label('Qiymət'),
+                Tables\Columns\TextColumn::make('discount')->sortable()->suffix(' %')->label('Endirim'),
                 Tables\Columns\TextColumn::make('status')->badge(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Yaradılma Tarixi'),
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
