@@ -68,8 +68,29 @@ class Orderobserver
      */
     public function deleted(Order $order): void
     {
-        //
+        // İlgili siparişteki ürünleri çek (product ile birlikte)
+        $orderProducts = $order->orderProduct()->with('product')->get();
+
+        foreach ($orderProducts as $orderProduct) {
+            $product = $orderProduct->product;
+
+            if ($product) {
+                // Stok geri ekle (iade gibi)
+                $newStock = $product->stock_count + $orderProduct->count;
+
+                $product->update([
+                    'stock_count' => $newStock
+                ]);
+
+                // Log yaz (izleme için)
+                Log::info("Stock restored for Product ID {$product->id}, New Stock: {$newStock}");
+            } else {
+                // Ürün bulunamazsa logla
+                Log::warning("Product not found for OrderProduct ID: {$orderProduct->id}");
+            }
+        }
     }
+
 
     /**
      * Handle the Order "restored" event.
