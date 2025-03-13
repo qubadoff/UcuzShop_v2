@@ -23,12 +23,18 @@ class Orderobserver
     {
         if ($order->wasChanged('status')) {
 
-            $oldStatus = $order->getOriginal('status'); // String geliyor
-            $newStatus = $order->status; // Enum objesi
+            $oldStatus = $order->getOriginal('status'); // string
+            $newStatus = $order->status; // Enum
+
+            // Debug için kontrol logu
+            Log::info('Order status change detected', [
+                'old_status' => $oldStatus,
+                'new_status' => $newStatus->value,
+            ]);
 
             $orderProducts = $order->orderProduct()->with('product')->get();
 
-            // Eğer yeni durum COMPLETED ise stok düş
+            // ✅ COMPLETED olunca stock düş
             if ($newStatus === OrderStatusEnum::COMPLETED) {
 
                 foreach ($orderProducts as $orderProduct) {
@@ -39,21 +45,22 @@ class Orderobserver
                         $product->update([
                             'stock_count' => $newStock
                         ]);
-                        Log::info("Product ID {$product->id} stock decreased to: {$newStock}");
+                        Log::info("Stock decreased for Product ID {$product->id}, New Stock: {$newStock}");
                     } else {
                         Log::warning("Product not found for OrderProduct ID: {$orderProduct->id}");
                     }
                 }
             }
 
-            // Eğer eski durum COMPLETED ve yeni durum CANCELLED veya RETURNED ise stok artır
+            // ✅ Eski status COMPLETED ve yeni status CANCELLED/RETURNED ise stok geri ekle
             if (
-                $oldStatus === OrderStatusEnum::COMPLETED->value && // String karşılaştırması ✅
+                $oldStatus === OrderStatusEnum::COMPLETED->value && // String karşılaştırma
                 (
-                    $newStatus === OrderStatusEnum::CANCELLED || // Enum karşılaştırması ✅
+                    $newStatus === OrderStatusEnum::CANCELLED || // Enum karşılaştırma
                     $newStatus === OrderStatusEnum::RETURNED
                 )
             ) {
+
                 foreach ($orderProducts as $orderProduct) {
                     $product = $orderProduct->product;
 
@@ -62,7 +69,7 @@ class Orderobserver
                         $product->update([
                             'stock_count' => $newStock
                         ]);
-                        Log::info("Product ID {$product->id} stock increased to: {$newStock}");
+                        Log::info("Stock increased for Product ID {$product->id}, New Stock: {$newStock}");
                     } else {
                         Log::warning("Product not found for OrderProduct ID: {$orderProduct->id}");
                     }
@@ -70,6 +77,7 @@ class Orderobserver
             }
         }
     }
+
 
 
 
