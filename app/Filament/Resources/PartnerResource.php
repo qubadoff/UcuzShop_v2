@@ -47,7 +47,7 @@ class PartnerResource extends Resource
                         ])
                         ->default(1)
                         ->required(),
-                ]),
+                ])->columns(),
             ]);
     }
 
