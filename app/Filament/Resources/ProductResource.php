@@ -44,7 +44,7 @@ class ProductResource extends Resource
                         ])
                         ->required()->label('Status')
                         ->default(ProductStatusEnum::ACTIVE->value)
-                ]),
+                ])->columns(3),
                 Section::make([
                     FileUpload::make('images')->multiple()->required()
                         ->image()->label('Şəkli')
@@ -55,7 +55,7 @@ class ProductResource extends Resource
                             '1:1',
                         ]),
                     FileUpload::make('video')->nullable()->label('Video'),
-                ])
+                ])->columns()
             ]);
     }
 
