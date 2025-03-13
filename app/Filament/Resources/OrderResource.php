@@ -74,7 +74,14 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('partner.name')->searchable()->label('Tərəfdaş'),
                 Tables\Columns\TextColumn::make('price')->sortable()->money(' AZN')->label('Qiymət'),
                 Tables\Columns\TextColumn::make('discount')->sortable()->suffix(' %')->label('Endirim'),
-                Tables\Columns\TextColumn::make('status')->badge(),
+                Tables\Columns\SelectColumn::make('status')->options([
+                    OrderStatusEnum::PENDING->value => OrderStatusEnum::PENDING->getLabel(),
+                    OrderStatusEnum::PREPARING->value => OrderStatusEnum::PREPARING->getLabel(),
+                    OrderStatusEnum::DELIVERED->value => OrderStatusEnum::DELIVERED->getLabel(),
+                    OrderStatusEnum::COMPLETED->value => OrderStatusEnum::COMPLETED->getLabel(),
+                    OrderStatusEnum::CANCELLED->value => OrderStatusEnum::CANCELLED->getLabel(),
+                    OrderStatusEnum::RETURNED->value => OrderStatusEnum::RETURNED->getLabel(),
+                ])->label('Status'),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Yaradılma Tarixi'),
             ])->defaultSort('created_at', 'desc')
             ->filters([
