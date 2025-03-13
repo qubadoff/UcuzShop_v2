@@ -23,26 +23,29 @@ class CartController extends Controller
     public function addCart(Request $request): CartResource
     {
         $request->validate([
-           'product_id' => 'required|exists:products,id',
-           'count' => 'required|numeric',
+            'product_id' => 'required|exists:products,id',
+            'count' => 'required|numeric|min:1',
         ]);
 
-        $cart = Cart::query()->where('customer_id', $request->customer_id)->where('product_id', $request->product_id)->first();
+        $userId = auth()->user()->id;
+
+        $cart = Cart::query()
+            ->where('customer_id', $userId)
+            ->where('product_id', $request->product_id)
+            ->first();
 
         if ($cart) {
             $cart->count += $request->count;
         } else {
             $cart = new Cart();
-            $cart->customer_id = auth()->user()->id;
+            $cart->customer_id = $userId;
             $cart->product_id = $request->product_id;
             $cart->count = $request->count;
         }
+
         $cart->save();
 
-
-        $user = Customer::query()->where('id', auth()->user()->id)->first();
-
-        $user->notify(new AddCartNotification());
+        auth()->user()->notify(new AddCartNotification());
 
         return new CartResource($cart);
     }
