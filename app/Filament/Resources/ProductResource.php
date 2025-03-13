@@ -66,6 +66,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('code')->searchable()->label('Kodu'),
                 Tables\Columns\TextColumn::make('name')->searchable()->label('Ad'),
+                Tables\Columns\TextColumn::make('category.name')->searchable()->label('Kateqoriya'),
                 Tables\Columns\TextColumn::make('price')->sortable()->label('Qiymət'),
                 Tables\Columns\TextColumn::make('stock_count')->sortable()->label('Məhsul sayı'),
                 Tables\Columns\TextColumn::make('yeast_count')->sortable()->numeric()->label('Maya dəyəri'),
