@@ -26,11 +26,6 @@ class Orderobserver
             $oldStatus = $order->getOriginal('status');
             $newStatus = $order->status;
 
-            Log::info('Order status change detected', [
-                'old_status' => $oldStatus instanceof OrderStatusEnum ? $oldStatus->value : $oldStatus,
-                'new_status' => $newStatus->value,
-            ]);
-
             $orderProducts = $order->orderProduct()->with('product')->get();
 
             if ($newStatus === OrderStatusEnum::COMPLETED) {
@@ -39,7 +34,6 @@ class Orderobserver
                     if ($product) {
                         $newStock = $product->stock_count - $orderProduct->count;
                         $product->update(['stock_count' => $newStock]);
-                        Log::info("Stock decreased for Product ID {$product->id}, New Stock: {$newStock}");
                     }
                 }
             }
@@ -56,7 +50,6 @@ class Orderobserver
                     if ($product) {
                         $newStock = $product->stock_count + $orderProduct->count;
                         $product->update(['stock_count' => $newStock]);
-                        Log::info("Stock increased for Product ID {$product->id}, New Stock: {$newStock}");
                     }
                 }
             }
@@ -68,24 +61,18 @@ class Orderobserver
      */
     public function deleted(Order $order): void
     {
-        // İlgili siparişteki ürünleri çek (product ile birlikte)
         $orderProducts = $order->orderProduct()->with('product')->get();
 
         foreach ($orderProducts as $orderProduct) {
             $product = $orderProduct->product;
 
             if ($product) {
-                // Stok geri ekle (iade gibi)
                 $newStock = $product->stock_count + $orderProduct->count;
 
                 $product->update([
                     'stock_count' => $newStock
                 ]);
-
-                // Log yaz (izleme için)
-                Log::info("Stock restored for Product ID {$product->id}, New Stock: {$newStock}");
             } else {
-                // Ürün bulunamazsa logla
                 Log::warning("Product not found for OrderProduct ID: {$orderProduct->id}");
             }
         }
