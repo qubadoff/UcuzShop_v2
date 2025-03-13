@@ -23,7 +23,7 @@ class Orderobserver
     {
         Log::info("Order updated: ID {$order->id}, New Status: {$order->status}");
 
-        if ($order->wasChanged('status') && $order->status == OrderStatusEnum::COMPLETED) {
+        if ($order->wasChanged('status') && $order->status === 3) {
             Log::info("Order COMPLETED detected: ID {$order->id}");
 
             $orderProducts = $order->orderProduct()->with('product')->get();
