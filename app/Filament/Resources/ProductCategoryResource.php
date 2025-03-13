@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductCategoryResource\Pages;
 use App\Models\ProductCategory;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -31,6 +32,7 @@ class ProductCategoryResource extends Resource
             ->schema([
                 Section::make([
                     TextInput::make('name')->required()->label('Ad'),
+                    FileUpload::make('image')->nullable()->label('Şəkli')->image()
                 ])
             ]);
     }
@@ -41,6 +43,7 @@ class ProductCategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id'),
                 Tables\Columns\TextColumn::make('name')->searchable()->label('Ad'),
+                Tables\Columns\ImageColumn::make('image')->label('Şəkli'),
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
