@@ -23,8 +23,8 @@ class Orderobserver
     {
         if ($order->wasChanged('status')) {
 
-            $oldStatus = $order->getOriginal('status'); // String geliyor olabilir
-            $newStatus = $order->status; // Enum objesi
+            $oldStatus = $order->getOriginal('status');
+            $newStatus = $order->status;
 
             Log::info('Order status change detected', [
                 'old_status' => $oldStatus instanceof OrderStatusEnum ? $oldStatus->value : $oldStatus,
@@ -33,7 +33,6 @@ class Orderobserver
 
             $orderProducts = $order->orderProduct()->with('product')->get();
 
-            // Eğer COMPLETED olduysa, stok azalt
             if ($newStatus === OrderStatusEnum::COMPLETED) {
                 foreach ($orderProducts as $orderProduct) {
                     $product = $orderProduct->product;
@@ -45,7 +44,6 @@ class Orderobserver
                 }
             }
 
-            // Eğer COMPLETED'den CANCELLED/RETURNED olduysa, stok geri ekle
             if (
                 ($oldStatus instanceof OrderStatusEnum ? $oldStatus->value : $oldStatus) === OrderStatusEnum::COMPLETED->value &&
                 (
@@ -64,12 +62,6 @@ class Orderobserver
             }
         }
     }
-
-
-
-
-
-
 
     /**
      * Handle the Order "deleted" event.
