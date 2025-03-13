@@ -57,7 +57,7 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('id'),
                 Tables\Columns\TextColumn::make('name')->label('Ad'),
                 Tables\Columns\TextColumn::make('country_code')->label('Ölkə kodu'),
-                Tables\Columns\TextColumn::make('phone')->label(''),
+                Tables\Columns\TextColumn::make('phone')->label('Telefon'),
                 Tables\Columns\TextColumn::make('location')->label('Lokasiya'),
                 Tables\Columns\TextColumn::make('status')->label('Status')->badge()
             ])
