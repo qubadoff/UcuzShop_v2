@@ -21,24 +21,21 @@ class Orderobserver
      */
     public function updated(Order $order): void
     {
-        // Önce status gerçekten değişmiş mi, kontrol et
         if ($order->wasChanged('status')) {
 
-            // Eski ve yeni status'leri al
-            $oldStatus = $order->getOriginal('status'); // Değişmeden önceki hali (Enum objesi değil, string)
-            $newStatus = $order->status; // Yeni hali (Enum objesi)
+            $oldStatus = $order->getOriginal('status'); // String geliyor
+            $newStatus = $order->status; // Enum objesi
 
-            // Sipariş ürünlerini al (product ile birlikte)
             $orderProducts = $order->orderProduct()->with('product')->get();
 
-            // Eğer status COMPLETED olduysa -> stok düş
+            // Eğer yeni durum COMPLETED ise stok düş
             if ($newStatus === OrderStatusEnum::COMPLETED) {
 
                 foreach ($orderProducts as $orderProduct) {
                     $product = $orderProduct->product;
 
                     if ($product) {
-                        $newStock = $product->stock_count - $orderProduct->count; // Stoktan çıkar
+                        $newStock = $product->stock_count - $orderProduct->count;
                         $product->update([
                             'stock_count' => $newStock
                         ]);
@@ -49,11 +46,11 @@ class Orderobserver
                 }
             }
 
-            // Eğer daha önce COMPLETED idi ve şimdi CANCELLED veya RETURNED olduysa -> stok geri ekle
+            // Eğer eski durum COMPLETED ve yeni durum CANCELLED veya RETURNED ise stok artır
             if (
-                $oldStatus === OrderStatusEnum::COMPLETED->value && // Dikkat: eski status string olduğu için ->value
+                $oldStatus === OrderStatusEnum::COMPLETED->value && // String karşılaştırması ✅
                 (
-                    $newStatus === OrderStatusEnum::CANCELLED ||
+                    $newStatus === OrderStatusEnum::CANCELLED || // Enum karşılaştırması ✅
                     $newStatus === OrderStatusEnum::RETURNED
                 )
             ) {
@@ -61,7 +58,7 @@ class Orderobserver
                     $product = $orderProduct->product;
 
                     if ($product) {
-                        $newStock = $product->stock_count + $orderProduct->count; // Stok ekle
+                        $newStock = $product->stock_count + $orderProduct->count;
                         $product->update([
                             'stock_count' => $newStock
                         ]);
