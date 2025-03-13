@@ -51,6 +51,7 @@ class OrderResource extends Resource
                         ->default(1)
                         ->required(),
                 ])->columns(3),
+
                 Section::make([
                     Repeater::make('orderProduct')
                         ->relationship()
@@ -60,8 +61,8 @@ class OrderResource extends Resource
                                 ->options(Product::all()->pluck('name', 'id'))
                                 ->required()->label('Məhsul'),
                             TextInput::make('count')->required()->numeric()->label('Miqdar'),
-                        ])->label('Məhsullar')
-                ])->columns()
+                        ])->label('Məhsullar')->columns()
+                ])
             ]);
     }
 
