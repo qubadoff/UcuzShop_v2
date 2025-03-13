@@ -21,11 +21,14 @@ class Orderobserver
      */
     public function updated(Order $order): void
     {
-        Log::info("Order updated: ID {$order->id}, New Status: {$order->status}");
+        // Doğru şekilde value alarak logla
+        Log::info("Order updated: ID {$order->id}, New Status: {$order->status->value}");
 
-        if ($order->wasChanged('status') && $order->status === 3) {
+        // Status değişmiş mi ve COMPLETED mi
+        if ($order->wasChanged('status') && $order->status === OrderStatusEnum::COMPLETED) {
             Log::info("Order COMPLETED detected: ID {$order->id}");
 
+            // Ürünleri çek
             $orderProducts = $order->orderProduct()->with('product')->get();
 
             foreach ($orderProducts as $orderProduct) {
@@ -45,6 +48,7 @@ class Orderobserver
             }
         }
     }
+
 
 
 
