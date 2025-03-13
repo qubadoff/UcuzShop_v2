@@ -32,7 +32,7 @@ class ProductResource extends Resource
             ->schema([
                 Section::make([
                     Select::make('category_id')->relationship('category', 'name')->required()->label('Kateqoriya'),
-                    TextInput::make('code')->required()->label('Kodu'),
+                    TextInput::make('code')->nullable()->label('Kodu'),
                     TextInput::make('name')->required()->label('Ad'),
                     TextInput::make('price')->required()->numeric()->label('Qiymət'),
                     TextInput::make('stock_count')->required()->numeric()->label('Məhsul sayı'),
