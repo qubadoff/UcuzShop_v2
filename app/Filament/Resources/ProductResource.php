@@ -32,6 +32,7 @@ class ProductResource extends Resource
             ->schema([
                 Section::make([
                     Select::make('category_id')->relationship('category', 'name')->required()->label('Kateqoriya'),
+                    TextInput::make('code')->required()->label('Kodu'),
                     TextInput::make('name')->required()->label('Ad'),
                     TextInput::make('price')->required()->numeric()->label('Qiymət'),
                     TextInput::make('stock_count')->required()->numeric()->label('Məhsul sayı'),
@@ -63,6 +64,7 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('code')->searchable()->label('Kodu'),
                 Tables\Columns\TextColumn::make('name')->searchable()->label('Ad'),
                 Tables\Columns\TextColumn::make('price')->sortable()->label('Qiymət'),
                 Tables\Columns\TextColumn::make('stock_count')->sortable()->label('Məhsul sayı'),
