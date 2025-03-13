@@ -23,18 +23,18 @@ class Orderobserver
     {
         if ($order->wasChanged('status')) {
 
-            $oldStatus = $order->getOriginal('status'); // string
-            $newStatus = $order->status; // Enum
+            // Enum olarak eski status'u al (string olanı Enum'a çevir)
+            $oldStatus = OrderStatusEnum::from($order->getOriginal('status')); // ENUM!
+            $newStatus = $order->status; // ENUM!
 
-            // Debug için kontrol logu
             Log::info('Order status change detected', [
-                'old_status' => $oldStatus,
+                'old_status' => $oldStatus->value,
                 'new_status' => $newStatus->value,
             ]);
 
             $orderProducts = $order->orderProduct()->with('product')->get();
 
-            // ✅ COMPLETED olunca stock düş
+            // ✅ Eğer COMPLETED olduysa, stok düş
             if ($newStatus === OrderStatusEnum::COMPLETED) {
 
                 foreach ($orderProducts as $orderProduct) {
@@ -52,15 +52,14 @@ class Orderobserver
                 }
             }
 
-            // ✅ Eski status COMPLETED ve yeni status CANCELLED/RETURNED ise stok geri ekle
+            // ✅ Eğer COMPLETED'den CANCELLED/RETURNED olduysa, stok artır
             if (
-                $oldStatus === OrderStatusEnum::COMPLETED->value && // String karşılaştırma
+                $oldStatus === OrderStatusEnum::COMPLETED &&
                 (
-                    $newStatus === OrderStatusEnum::CANCELLED || // Enum karşılaştırma
+                    $newStatus === OrderStatusEnum::CANCELLED ||
                     $newStatus === OrderStatusEnum::RETURNED
                 )
             ) {
-
                 foreach ($orderProducts as $orderProduct) {
                     $product = $orderProduct->product;
 
