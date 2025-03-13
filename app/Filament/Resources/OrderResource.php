@@ -50,7 +50,7 @@ class OrderResource extends Resource
                         ])->label('Status')
                         ->default(1)
                         ->required(),
-                ]),
+                ])->columns(3),
                 Section::make([
                     Repeater::make('orderProduct')
                         ->relationship()
@@ -61,7 +61,7 @@ class OrderResource extends Resource
                                 ->required()->label('Məhsul'),
                             TextInput::make('count')->required()->numeric()->label('Miqdar'),
                         ])->label('Məhsullar')
-                ])
+                ])->columns()
             ]);
     }
 
