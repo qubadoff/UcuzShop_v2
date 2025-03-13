@@ -72,7 +72,7 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('customer.name')->searchable()->label('Müştəri'),
                 Tables\Columns\TextColumn::make('partner.name')->searchable()->label('Tərəfdaş'),
-                Tables\Columns\TextColumn::make('price')->sortable()->money(' AZN')->label('Qiymət'),
+                Tables\Columns\TextColumn::make('price')->sortable()->suffix(' AZN')->label('Qiymət'),
                 Tables\Columns\TextColumn::make('discount')->sortable()->suffix(' %')->label('Endirim'),
                 Tables\Columns\SelectColumn::make('status')->options([
                     OrderStatusEnum::PENDING->value => OrderStatusEnum::PENDING->getLabel(),
