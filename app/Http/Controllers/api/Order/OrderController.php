@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Order\OrderResource;
 use App\Models\Order;
+use App\Models\Setting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -18,7 +19,7 @@ class OrderController extends Controller
             'note' => 'nullable|string',
         ]);
 
-        if ($request->input('price') < 30) {
+        if ($request->input('price') < Setting::query()->where('id', 1)->first()->min_order_price) {
             return response()->json([
                 'message' => 'Sifarişin ümumi dəyəri 30 AZN - dən çox olmalıdır !',
             ], 422);
