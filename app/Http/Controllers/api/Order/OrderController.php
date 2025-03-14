@@ -21,7 +21,7 @@ class OrderController extends Controller
         if ($request->input('price') < 30) {
             return response()->json([
                 'message' => 'Sifarişin ümumi dəyəri 30 AZN - dən çox olmalıdır !',
-            ]);
+            ], 422);
         }
 
         $customer = auth()->user();
