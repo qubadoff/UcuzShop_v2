@@ -15,7 +15,7 @@ class OrderController extends Controller
     {
         $request->validate([
             'price' => 'required|numeric',
-            'note' => 'nullable|string',
+            'note' => 'nullable|numeric',
         ]);
 
         if ($request->input('price') < 30) {
