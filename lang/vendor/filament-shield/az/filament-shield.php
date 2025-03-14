@@ -9,7 +9,7 @@ return [
 
     'column.name' => 'Ad',
     'column.guard_name' => 'Koruma Adı',
-    'column.roles' => 'Roller',
+    'column.roles' => 'Rollar',
     'column.permissions' => 'İzinler',
     'column.updated_at' => 'Güncellenme Tarihi',
 
@@ -32,10 +32,10 @@ return [
     */
 
     'nav.group' => 'İcazələr',
-    'nav.role.label' => 'Roller',
+    'nav.role.label' => 'Rollar',
     'nav.role.icon' => 'heroicon-o-shield-check',
     'resource.label.role' => 'Rol',
-    'resource.label.roles' => 'Roller',
+    'resource.label.roles' => 'Rollar',
 
     /*
     |--------------------------------------------------------------------------
