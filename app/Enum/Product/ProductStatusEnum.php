@@ -14,8 +14,8 @@ enum ProductStatusEnum: int implements HasLabel, HasColor
     public function getLabel(): string
     {
         return match ($this) {
-            self::ACTIVE => 'Active',
-            self::INACTIVE => 'Inactive',
+            self::ACTIVE => 'Aktiv',
+            self::INACTIVE => 'Deaktiv',
         };
     }
 

@@ -15,7 +15,7 @@ enum PartnerStatusEnum: int implements HasLabel, HasColor
     {
         return match ($this) {
             self::ACTIVE => 'Aktiv',
-            self::INACTIVE => 'Passiv',
+            self::INACTIVE => 'Deaktiv',
         };
     }
 
