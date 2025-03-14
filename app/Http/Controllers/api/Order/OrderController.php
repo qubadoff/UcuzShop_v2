@@ -19,7 +19,9 @@ class OrderController extends Controller
             'note' => 'nullable|string',
         ]);
 
-        if ($request->input('price') < Setting::query()->where('id', 1)->first()->min_order_price) {
+        $setting = Setting::query()->where('id', 1)->first()->min_order_price ? Setting::query()->where('id', 1)->first()->min_order_price : 30;
+
+        if ($request->input('price') < $setting) {
             return response()->json([
                 'message' => 'Sifarişin ümumi dəyəri 30 AZN - dən çox olmalıdır !',
             ], 422);
