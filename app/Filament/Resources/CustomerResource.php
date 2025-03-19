@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enum\Customer\CustomerStatusEnum;
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Models\Customer;
+use Exception;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -50,6 +51,9 @@ class CustomerResource extends Resource
             ]);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
@@ -62,16 +66,18 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('status')->label('Status')->badge()
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
                 ]),
             ])->defaultSort('created_at', 'desc');
     }
