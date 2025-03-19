@@ -56,9 +56,9 @@ class PartnerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id'),
-                Tables\Columns\TextColumn::make('name')->label('Ad'),
+                Tables\Columns\TextColumn::make('name')->label('Ad')->searchable(),
                 Tables\Columns\TextColumn::make('country_code')->label('Ölkə kodu'),
-                Tables\Columns\TextColumn::make('phone')->label('Telefon'),
+                Tables\Columns\TextColumn::make('phone')->label('Telefon')->searchable(),
                 Tables\Columns\TextColumn::make('status')->badge()->label('Status'),
             ])
             ->filters([

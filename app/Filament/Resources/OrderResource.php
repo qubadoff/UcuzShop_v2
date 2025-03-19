@@ -71,8 +71,8 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\TextColumn::make('customer.name')->searchable()->label('Müştəri'),
-                Tables\Columns\TextColumn::make('partner.name')->searchable()->label('Tərəfdaş'),
+                Tables\Columns\TextColumn::make('customer.name')->searchable()->label('Müştəri')->searchable(),
+                Tables\Columns\TextColumn::make('partner.name')->searchable()->label('Tərəfdaş')->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->suffix(' AZN')->label('Qiymət'),
                 Tables\Columns\TextColumn::make('discount')->sortable()->suffix(' %')->label('Endirim'),
                 Tables\Columns\SelectColumn::make('status')->options([
