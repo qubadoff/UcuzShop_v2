@@ -72,6 +72,8 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('yeast_count')->sortable()->numeric()->label('Maya dəyəri'),
                 Tables\Columns\TextColumn::make('status')->badge()->label('Status'),
                 Tables\Columns\ImageColumn::make('images')->label('Şəkli'),
+                Tables\Columns\TextColumn::make('created_at')->sortable()->label('Yaradıldı'),
+                Tables\Columns\TextColumn::make('updated_at')->sortable()->label('Yenilendi'),
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
